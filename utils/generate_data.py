@@ -4,15 +4,20 @@ from utils.misc_tools import merge_dicts
 
 from typing import Dict, List, Tuple
 
+import warnings
+
+# Suppress all warnings, for Pandas concat empty DataFrame Warning
+warnings.simplefilter(action='ignore', category=Warning)
+
 city_wealths_: Dict = {
     'Frogtopia': {
         'Red': {
-            'mean': 0.75,
-            'std': 0.15,
+            'mean': 0.5,
+            'std': 0.3,
         },
         'Blue': {
-            'mean': 0.75,
-            'std': 0.15,
+            'mean': 0.5,
+            'std': 0.3,
         }
     },
     'Pond Place': {
@@ -21,7 +26,7 @@ city_wealths_: Dict = {
             'std': 0.15,
         },
         'Blue': {
-            'mean': 0.5,
+            'mean': 0.25,
             'std': 0.15,
         }
     }
@@ -78,6 +83,8 @@ class DataGenerator:
     def distribution(n_frogs: int = 100, population_info: Dict = {'Red': 0.5, 'Blue': 0.5}, city: str = None, city_wealth: Dict = {'Red': {'mean': 0.75, 'std': 0.15,}, 'Blue': {'mean': 0.75, 'std': 0.15,}}) -> pd.DataFrame:
         """
         Generates Frog population as vectors
+
+        Slight Chance not all items will be repersented, could lead to error, not very likely
         """
 
         # Loads wealth distribution
